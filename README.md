@@ -1,2 +1,2 @@
-# THONTwitterWorkshop
-Workshop source code for THON Twitter Data Analysis.
+# THON Twitter Analysis Workshop
+Workshop source code for NDL's THON Twitter Data Analysis.
