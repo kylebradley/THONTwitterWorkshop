@@ -47,6 +47,8 @@ tokens_re = re.compile(r'('+'|'.join(regex_str)+')', re.VERBOSE | re.IGNORECASE)
 
 # TODO: Write the routine to import the dataset.
 tokens = map(lambda x: tokens_re.findall(x['text']), data)
+
+
 print '[TOKENIZED SAMPLE]:\n' + str(tokens[0]) + '\n'
 
 ''' Part 3: Text Filtering '''
@@ -69,25 +71,30 @@ tokens = map(lambda tok: filter(lambda x: x not in stopwords, tok), tokens)
 print '[STOPWORD REMOVED TOKENS]:\n' + str(tokens[0]) + '\n'
 
 ''' Part 5: Compute Token Frequency '''
-'''
 counts = dict()
 for tweet in tokens:
     # TODO: Write the frequency analysis routine
-
-'''
+    for t in tweet:
+        if t not in counts: counts[t] = 0
+        counts[t] = counts[t] + 1
 
 ''' Part 6: Sort Token Frequency '''
-'''
 # TODO: Write the token frequency sort routine.
-
+sorted_freq = sorted(counts.items(), key=lambda x: x[1], reverse=True)
 print '[SORTED TOKEN FREQUENCY]:\n' + str(sorted_freq[:20]) + '\n'
-'''
 
 ''' Part 7: Sentiment Analysis '''
-'''
 # TODO: Write the sentiment corpus loading routine.
 pos_terms = open('data/pos_terms.txt', 'rb').read().split('\n')[:-1]
 neg_terms = open('data/neg_terms.txt', 'rb').read().split('\n')[:-1]
 
+pos_count = 0
+neg_count = 0
+
+for tweet in tokens:
+    pos_count += len(set.intersection(set(tweet), pos_terms))
+    neg_count += len(set.intersection(set(tweet), neg_terms))
+
+score = log(pos_count+0.5) - log(neg_count+0.5)
+
 print '[SCORE]: ' + str(score)
-'''
